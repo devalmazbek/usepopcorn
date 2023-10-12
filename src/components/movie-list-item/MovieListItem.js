@@ -1,6 +1,10 @@
-function MovieListItem({ movie }) {
+function MovieListItem({ movie, onSelectMovie }) {
+  const onSelect = () => {
+    onSelectMovie(movie.imdbID);
+  };
+
   return (
-    <li>
+    <li onClick={onSelect}>
       <img src={movie.Poster} alt={`${movie.Title} poster`} />
       <h3>{movie.Title}</h3>
       <div>
