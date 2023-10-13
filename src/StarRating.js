@@ -10,7 +10,7 @@ const container = {
 const textStyle = {
   lineHeight: "0",
   margin: "0",
-  color: "#000",
+  color: "yellow",
   fontSize: "1.5rem",
 };
 
@@ -18,13 +18,18 @@ const rateStyle = {
   display: "flex",
 };
 
-function StarRating({ maxLength = 5, defaultValue = 0, onMovieRating }) {
+function StarRating({
+  maxLength = 5,
+  defaultValue = 0,
+  onMovieRating,
+  size = 48,
+}) {
   const [rate, setRate] = useState(defaultValue);
   const [tempRating, setTempRating] = useState(0);
 
   function handleRate(rating) {
     setRate(rating);
-    onMovieRating(rating);
+    // onMovieRating(rating);
   }
 
   return (
@@ -37,6 +42,7 @@ function StarRating({ maxLength = 5, defaultValue = 0, onMovieRating }) {
             full={tempRating ? tempRating >= i + 1 : rate >= i + 1}
             onHoverIn={() => setTempRating(i + 1)}
             onHoverOut={() => setTempRating(0)}
+            size={size}
           />
         ))}
       </div>

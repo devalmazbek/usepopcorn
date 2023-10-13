@@ -4,7 +4,7 @@ function Star({
   onHoverIn,
   onHoverOut,
   color = "#fcc419",
-  size = 48,
+  size,
 }) {
   const starStyle = {
     display: "block",

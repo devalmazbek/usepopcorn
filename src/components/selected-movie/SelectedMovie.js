@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+
+import StarRating from "./../../StarRating";
 import Spinner from "../spinner/Spinner";
 
-function SelectedMovie({ id, apiKey }) {
+function SelectedMovie({ id, apiKey, onCloseMovieDetail, onAddWachedMovies }) {
   const [isLoading, setIsLoading] = useState(false);
   const [movie, setMovie] = useState({});
 
@@ -35,13 +37,30 @@ function SelectedMovie({ id, apiKey }) {
     <>
       {isLoading && <Spinner />}
       {Object.keys(movie).length !== 0 ? (
-        <div>
-          <div className="img">
-            <img src={movie.Poster} alt="sdfsdfsdf" />
-          </div>
-          <div className="content">
-            <h2>{movie.Title}</h2>
-          </div>
+        <div className="details">
+          <header>
+            <button className="btn-back" onClick={onCloseMovieDetail}>
+              &larr;
+            </button>
+            <img src={movie.Poster} alt={movie.Title} />
+            <div className="details-overview">
+              <h2>{movie.Title}</h2>
+              <p>
+                {movie.Released} &bull; {movie.Runtime}
+              </p>
+              <p>{movie.Genre}</p>
+              <p>Rating ⭐ {movie.imdbRating}</p>
+            </div>
+          </header>
+          <section>
+            <div className="rating">
+              <StarRating maxLength={10} size={26} />
+              <button className="btn-add">Add wached list</button>
+            </div>
+            <p>{movie.Plot}</p>
+            <p>Starring: {movie.Actors}</p>
+            <p>Directed by: {movie.Director}</p>
+          </section>
         </div>
       ) : (
         <h3>no selected movie</h3>

@@ -12,7 +12,7 @@ import Search from "./components/header/search/Search";
 import SelectedMovie from "./components/selected-movie/SelectedMovie";
 
 import Spinner from "./components/spinner/Spinner";
-// import { tempMovieData, tempWatchedData } from "./data";
+import { tempMovieData, tempWatchedData } from "./data";
 
 const KEY = "f84fc31d";
 
@@ -62,6 +62,14 @@ export default function App() {
     [query]
   );
 
+  function handleCloseMovieDetails() {
+    setSelectedId(null);
+  }
+
+  function handleAddWachedMovies(movie) {
+    setWatched((watched) => [...watched, movie]);
+  }
+
   return (
     <>
       <Navbar>
@@ -77,9 +85,19 @@ export default function App() {
           {error && <Error message={error} />}
         </Box>
         <Box>
-          <WachedSummary watched={watched} />
-          <WachedList watched={watched} />
-          <SelectedMovie id={selectedId} apiKey={KEY} />
+          {selectedId ? (
+            <SelectedMovie
+              id={selectedId}
+              apiKey={KEY}
+              onCloseMovieDetail={handleCloseMovieDetails}
+              onAddWachedMovies={handleAddWachedMovies}
+            />
+          ) : (
+            <>
+              <WachedSummary watched={watched} />
+              <WachedList watched={watched} />
+            </>
+          )}
         </Box>
       </Main>
     </>
