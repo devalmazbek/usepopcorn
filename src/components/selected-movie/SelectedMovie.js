@@ -3,9 +3,16 @@ import { useEffect, useState } from "react";
 import StarRating from "./../../StarRating";
 import Spinner from "../spinner/Spinner";
 
-function SelectedMovie({ id, apiKey, onCloseMovieDetail, onAddWachedMovies }) {
+function SelectedMovie({
+  id,
+  apiKey,
+  onCloseMovieDetail,
+  onAddWachedMovies,
+  watched,
+}) {
   const [isLoading, setIsLoading] = useState(false);
   const [movie, setMovie] = useState({});
+  const [movieRate, setMovieRate] = useState("");
 
   useEffect(
     function () {
@@ -32,7 +39,30 @@ function SelectedMovie({ id, apiKey, onCloseMovieDetail, onAddWachedMovies }) {
     [id]
   );
 
-  console.log(Object.keys(movie).length);
+  function handleAddMovie() {
+    const wachetMovie = {
+      imdbID: id,
+      title: movie.Title,
+      year: movie.Year,
+      poster: movie.Poster,
+      imdbRating: Number(movie.imdbRating),
+      runtime: Number(movie.Runtime.slice(0, 2)),
+      userRating: movieRate,
+    };
+
+    onAddWachedMovies(wachetMovie);
+  }
+
+  const isRated = watched.map((movie) => movie.imdbID).includes(id);
+  const rate = watched.map((movie) => {
+    if (movie.imdbID === id) {
+      const currentRating = movie.userRating;
+      return currentRating;
+    }
+  });
+
+  console.log(rate);
+
   return (
     <>
       {isLoading && <Spinner />}
@@ -54,8 +84,24 @@ function SelectedMovie({ id, apiKey, onCloseMovieDetail, onAddWachedMovies }) {
           </header>
           <section>
             <div className="rating">
-              <StarRating maxLength={10} size={26} />
-              <button className="btn-add">Add wached list</button>
+              {!isRated ? (
+                <>
+                  <StarRating
+                    maxLength={10}
+                    size={26}
+                    onMovieRating={setMovieRate}
+                  />
+                  {movieRate && (
+                    <button className="btn-add" onClick={handleAddMovie}>
+                      Add wached list
+                    </button>
+                  )}
+                </>
+              ) : (
+                <p>
+                  The movie is rated! <span>{rate}</span>
+                </p>
+              )}
             </div>
             <p>{movie.Plot}</p>
             <p>Starring: {movie.Actors}</p>

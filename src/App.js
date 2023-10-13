@@ -67,7 +67,8 @@ export default function App() {
   }
 
   function handleAddWachedMovies(movie) {
-    setWatched((watched) => [...watched, movie]);
+    setWatched([...watched, movie]);
+    setSelectedId(null);
   }
 
   return (
@@ -91,6 +92,7 @@ export default function App() {
               apiKey={KEY}
               onCloseMovieDetail={handleCloseMovieDetails}
               onAddWachedMovies={handleAddWachedMovies}
+              watched={watched}
             />
           ) : (
             <>

@@ -29,7 +29,7 @@ function StarRating({
 
   function handleRate(rating) {
     setRate(rating);
-    // onMovieRating(rating);
+    onMovieRating(rating);
   }
 
   return (
