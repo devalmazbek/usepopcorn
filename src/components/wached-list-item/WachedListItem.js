@@ -20,7 +20,7 @@ function WachedListItem({ movie, onRemoveWachedMovie }) {
           className="btn-delete"
           onClick={() => onRemoveWachedMovie(movie.imdbID)}
         >
-          Remove
+          X
         </button>
       </div>
     </li>

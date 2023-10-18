@@ -73,7 +73,7 @@ export default function App() {
 
   function handleRemoveWachedMovie(id) {
     setWatched((watched) => {
-      watched.filter((movie) => movie.imdbID !== id);
+      return watched.filter((movie) => movie?.imdbID !== id);
     });
   }
 
