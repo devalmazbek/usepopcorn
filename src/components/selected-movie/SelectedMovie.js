@@ -14,11 +14,25 @@ function SelectedMovie({
   const [movie, setMovie] = useState({});
   const [movieRate, setMovieRate] = useState("");
 
+  useEffect(function () {
+    function closeDetail(e) {
+      if (e.code === "Escape") {
+        onCloseMovieDetail();
+      }
+    }
+
+    document.addEventListener("keydown", closeDetail);
+
+    return function () {
+      document.removeEventListener("keydown", closeDetail);
+      console.log("close");
+    };
+  });
+
   useEffect(
     function () {
       async function getMovieDetails() {
         try {
-          setMovie({});
           setIsLoading(true);
           if (id) {
             const response = await fetch(
@@ -39,6 +53,20 @@ function SelectedMovie({
     [id]
   );
 
+  useEffect(
+    function () {
+      if (!movie.Title) return;
+      else {
+        document.title = `Movie|${movie.Title}`;
+      }
+
+      return function () {
+        document.title = "usePopcorn";
+      };
+    },
+    [movie.Title]
+  );
+
   function handleAddMovie() {
     const wachetMovie = {
       imdbID: id,
@@ -52,6 +80,8 @@ function SelectedMovie({
 
     onAddWachedMovies(wachetMovie);
   }
+
+  console.log(movie.title);
 
   const isRated = watched.map((movie) => movie.imdbID).includes(id);
   const rate = watched.map((movie) => {
