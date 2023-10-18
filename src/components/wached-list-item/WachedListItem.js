@@ -1,4 +1,4 @@
-function WachedListItem({ movie }) {
+function WachedListItem({ movie, onRemoveWachedMovie }) {
   return (
     <li>
       <img src={movie.poster} alt={`${movie.title} poster`} />
@@ -16,6 +16,12 @@ function WachedListItem({ movie }) {
           <span>⏳</span>
           <span>{movie.runtime} min</span>
         </p>
+        <button
+          className="btn-delete"
+          onClick={() => onRemoveWachedMovie(movie.imdbID)}
+        >
+          Remove
+        </button>
       </div>
     </li>
   );

@@ -55,10 +55,11 @@ function SelectedMovie({
 
   const isRated = watched.map((movie) => movie.imdbID).includes(id);
   const rate = watched.map((movie) => {
+    let currentRating;
     if (movie.imdbID === id) {
-      const currentRating = movie.userRating;
-      return currentRating;
+      currentRating = movie.userRating;
     }
+    return currentRating;
   });
 
   console.log(rate);

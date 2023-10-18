@@ -12,7 +12,7 @@ import Search from "./components/header/search/Search";
 import SelectedMovie from "./components/selected-movie/SelectedMovie";
 
 import Spinner from "./components/spinner/Spinner";
-import { tempMovieData, tempWatchedData } from "./data";
+// import { tempMovieData, tempWatchedData } from "./data";
 
 const KEY = "f84fc31d";
 
@@ -71,6 +71,12 @@ export default function App() {
     setSelectedId(null);
   }
 
+  function handleRemoveWachedMovie(id) {
+    setWatched((watched) => {
+      watched.filter((movie) => movie.imdbID !== id);
+    });
+  }
+
   return (
     <>
       <Navbar>
@@ -97,7 +103,10 @@ export default function App() {
           ) : (
             <>
               <WachedSummary watched={watched} />
-              <WachedList watched={watched} />
+              <WachedList
+                watched={watched}
+                onRemoveWachedMovie={handleRemoveWachedMovie}
+              />
             </>
           )}
         </Box>
