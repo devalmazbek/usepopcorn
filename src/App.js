@@ -18,9 +18,9 @@ const KEY = "653a9256";
 
 export default function App() {
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState(() =>
-    JSON.parse(localStorage.getItem("wached"))
-  );
+  const [watched, setWatched] = useState(function () {
+    return JSON.parse(localStorage.getItem("wached"));
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
