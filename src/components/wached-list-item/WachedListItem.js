@@ -1,4 +1,4 @@
-function WachedListItem({ movie, onRemoveWachedMovie }) {
+function WachedListItem({ movie = {}, onRemoveWachedMovie }) {
   return (
     <li>
       <img src={movie.poster} alt={`${movie.title} poster`} />

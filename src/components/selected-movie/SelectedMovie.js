@@ -68,7 +68,7 @@ function SelectedMovie({
   );
 
   function handleAddMovie() {
-    const wachetMovie = {
+    const wachedMovie = {
       imdbID: id,
       title: movie.Title,
       year: movie.Year,
@@ -78,19 +78,23 @@ function SelectedMovie({
       userRating: movieRate,
     };
 
-    onAddWachedMovies(wachetMovie);
+    onAddWachedMovies(wachedMovie);
   }
 
   console.log(movie.title);
 
-  const isRated = watched.map((movie) => movie.imdbID).includes(id);
-  const rate = watched.map((movie) => {
-    let currentRating;
-    if (movie.imdbID === id) {
-      currentRating = movie.userRating;
-    }
-    return currentRating;
-  });
+  const isRated = watched
+    ? watched.map((movie) => movie.imdbID).includes(id)
+    : null;
+  const rate = watched
+    ? watched.map((movie) => {
+        let currentRating;
+        if (movie.imdbID === id) {
+          currentRating = movie.userRating;
+        }
+        return currentRating;
+      })
+    : null;
 
   console.log(rate);
 
