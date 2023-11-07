@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useKey } from "../../useKey";
 
 import StarRating from "./../../StarRating";
 import Spinner from "../spinner/Spinner";
@@ -14,20 +15,22 @@ function SelectedMovie({
   const [movie, setMovie] = useState({});
   const [movieRate, setMovieRate] = useState("");
 
-  useEffect(function () {
-    function closeDetail(e) {
-      if (e.code === "Escape") {
-        onCloseMovieDetail();
-      }
-    }
+  useKey("Escape", onCloseMovieDetail);
 
-    document.addEventListener("keydown", closeDetail);
+  // useEffect(function () {
+  //   function closeDetail(e) {
+  //     if (e.code === "Escape") {
+  //       onCloseMovieDetail();
+  //     }
+  //   }
 
-    return function () {
-      document.removeEventListener("keydown", closeDetail);
-      console.log("close");
-    };
-  });
+  //   document.addEventListener("keydown", closeDetail);
+
+  //   return function () {
+  //     document.removeEventListener("keydown", closeDetail);
+  //     console.log("close");
+  //   };
+  // });
 
   useEffect(
     function () {

@@ -35,6 +35,7 @@ export default function App() {
 
   function handleAddWachedMovies(movie) {
     setWatched([...watched, movie]);
+    setSelectedId(null);
   }
 
   function handleRemoveWachedMovie(id) {
